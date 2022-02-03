@@ -1,5 +1,7 @@
 const fs = require('fs');
 const dotenv = require('dotenv');
+import { ethers } from "hardhat";
+const hre = require("hardhat");
 
 async function main() {
     const network = hre.network.name;
