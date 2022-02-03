@@ -25,7 +25,7 @@ contract Adapter{
     mapping(address => uint256) balances;
     mapping(address => uint256[]) public stackes;
     //Emitted then tokens swapped
-    event TokenSwapped(uint256 amountIn, address indexed sender,uint256 va, uint256 va1, uint256 va3, uint256 va4, uint256 va5);
+    event TokenSwapped(uint256 amountIn, address indexed sender,uint256 va, uint256 va1, uint256 va3);
     
     //Emitted then user stacked
     event TokenStacked(address stacker, uint256 value, address pair, uint256 timeStamp);
@@ -131,6 +131,7 @@ contract Adapter{
         ) external
         notZeroAddr(tokenA, tokenB){
         IERC20(tokenA).transferFrom(msg.sender, address(this), _amountIn);
+        
         address[] memory path = new address[](2);
         
         path[0] = tokenA;
@@ -147,7 +148,7 @@ contract Adapter{
                 (block.timestamp + 120)
             );
         
-        emit TokenSwapped(_amountIn, msg.sender, amounts[0],amounts[1],amounts[2],amounts[3],amounts[4]);
+        emit TokenSwapped(_amountIn, msg.sender, amounts[0],amounts[1],amounts[2]);
     }
 
     function startStacking(uint256 _value, address _pair) external {
